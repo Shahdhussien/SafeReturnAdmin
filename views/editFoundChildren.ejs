@@ -1,0 +1,28 @@
+<%- include('./shared/nav_side_bar.ejs') %>
+    <body>
+        <main>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3> Edit Found Child Info</h3>
+                    </div>
+                    <form action="/updateFoundChildren/<%=child._id%>" method="post" enctype="multipart/form-data"
+                        id="form">
+                        <div class="form-grp">
+                            <label>Child Name</label>
+                            <div class="textbox">
+                                <%=child.name%>
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>Orphanage Name</label>
+                            <input type="text" placeholder="Orphanage Name" name="orphanageName"
+                                value="<%=child.orphanageName%>" />
+                        </div>
+                        <div class="form-grp">
+                            <input type="submit" value="Save" />
+                        </div>
+                    </form>
+                </div>
+
+                <%- include('./shared/footer.ejs') %>

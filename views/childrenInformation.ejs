@@ -1,0 +1,70 @@
+<%- include('./shared/nav_side_bar.ejs') %>
+ 
+        <!-- MAIN -->
+        <main>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Children Information</h3>
+                        <a href="/addCitizen" class="add-button" >
+                            <button id="tnn"><i class='bx bx-plus-circle'></i><span class="text">New</span></button>
+                        </a>
+                        </div>
+                    <table >
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>National Id</th>
+                                <th class="date">Birth date</th>
+                                <th>Country</th>
+                                <th>City</th>
+                                <th>Street</th>
+                                <th>Parent Name</th>
+                                <th>Parent Phone</th>
+                                <th>Parent NationalId</th>
+                                <th>Relation</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% citizens.forEach((row,index) => { %>
+                                <tr>
+                                    <td> <img src="<%=row.image.secure_url%>" alt="photo"> </td> 
+                                    <td> <%= row.name%></td>
+                                    <td> <%= row.nationalID%> </td>
+                                        <%var dateString= row.DOB%>
+                                        <%var DOB = new Date(dateString)%>
+                                        <%var month = DOB.toLocaleString('default', { month: 'short' });%> 
+                                        <%var day = DOB.getDate();%>
+                                        <%var year = DOB.getFullYear();%>
+                                        <%var displayDate = month + ' ' + (day < 10 ? '0' : '' ) + day + ' ' + year;%>
+                                    <td> <%= displayDate%>  </td>
+                                    <td> <%= row.country%></td>
+                                    <td> <%= row.city%></td>
+                                    <td> <%= row.street%></td>
+                                    <td> <%= row.relativeName %></td>
+                                    <td> <%= row.relativePhone %></td>
+                                    <td> <%= row.relativeNationalID%></td>
+                                    <td> <%= row.relationship%></td>
+                                    <th>
+                                        <a href="/editCitizen/<%=row._id%>" id="a" >
+                                            <i class='bx bxs-edit-alt'></i>
+                                        </a>
+                                        <a href="/deleteCitizen/<%=row._id%>" id="b">
+                                            <i class='bx bx-trash'></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+    <script type="text/javascript">
+ 	
+</script>
+ <%- include('./shared/footer.ejs') %>

@@ -1,0 +1,55 @@
+<%- include('./shared/nav_side_bar.ejs') %>
+		<!-- MAIN -->
+		<main>
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3> Found Children</h3>
+					</div>
+					<table class="center">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Photo</th>
+								<th>Child Name</th>
+								<th>Parent Name</th>
+								<th>Parent Phone</th>
+								<th>Orphanage Name</th>
+								<th>Updated</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for( let index = 0; index < foundchildrens.length; index++ ) { %>
+								<tr>
+									<td>  <%=index+1%></td>
+									<td>  <img src="<%=foundchildrens[index].image.secure_url%>" alt="photo"> </td>
+									<td>  <%=foundchildrens[index].name%></td>
+									<td><%=foundchildrens[index].parentName%></td>
+									<td><%=foundchildrens[index].parentphone%></td>
+									<td>  <%=foundchildrens[index].orphanageName%></td>
+									<td>  <%=foundchildrens[index].updated%></td>
+								    <th>
+										<a href="/foundChildrendetails/<%=foundchildrens[index].id%>" id="d"><i class='bx bxs-user-detail'></i>
+										</a>
+									    <a href="/editFoundChildren/<%=foundchildrens[index].id%>" id="a"><i class='bx bxs-edit-alt'></i>
+								     	</a>
+									    <a href="/deleteFoundChildren/<%=foundchildrens[index].id%>" id="b"><i class='bx bx-trash'></i>
+								 	    </a>
+								     </th>
+								</tr>
+							<% } %>
+							
+							
+							
+						</tbody>
+					</table>
+					</div>
+					</div>
+
+    </main>
+</section>
+		<!-- MAIN -->
+<%- include('./shared/footer.ejs') %>
+	
+			

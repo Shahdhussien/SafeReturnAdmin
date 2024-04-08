@@ -1,0 +1,67 @@
+<%- include('./shared/nav_side_bar.ejs') %>
+
+    <body>
+      <main>
+        <div class="table-data">
+          <div class="order">
+            <div class="head">
+              <h3>Add child</h3>
+            </div>
+<form action="/addCitizen" method="post" enctype="multipart/form-data" id="form">
+
+  <div class="form-grp">
+    <label>Name</label>
+    <input type="text" placeholder="Name" name="name" />
+  </div>
+  <div class="form-grp">
+    <label>National Id</label>
+    <input type="text" placeholder="National Id" name="nationalID" />
+  </div>
+  <div class="form-grp">
+    <label>Birth date</label>
+    <input type="date" placeholder="Birth date" name="DOB" />
+  </div>
+  <div class="form-grp">
+    <label>Country</label>
+    <input type="text" placeholder="Country" name="country" />
+  </div>
+  <div class="form-grp">
+    <label>City</label>
+    <input type="text" placeholder="City" name="city" />
+  </div>
+  <div class="form-grp">
+    <label>Street</label>
+    <input type="text" placeholder="Street" name="street" />
+  </div>
+  <div class="form-grp">
+    <label>Parent Name</label>
+    <input type="text" placeholder="Parent Name" name="relativeName" />
+  </div>
+  <div class="form-grp">
+    <label>Parent Phone</label>
+    <input type="text" placeholder="Parent Phone" name="relativePhone" />
+  </div>
+  <div class="form-grp">
+    <label>Parent National</label>
+    <input type="text" placeholder="Parent National" name="relativeNationalID" />
+  </div>
+  <div class="form-grp">
+    <label>relationship</label>
+    <input type="text" placeholder="relationship" name="relationship" />
+  </div>
+  <div class="form-grp">
+    <label>Photo </label>
+    <input type="file" placeholder="" name="image" />
+  </div>
+  <div class="form-grp">
+    <input type="submit" value="Save" />
+  </div>
+</form>
+          </div>
+  
+
+
+<%- include('./shared/footer.ejs') %>
+
+
+

@@ -1,0 +1,151 @@
+<%- include('./shared/nav_side_bar.ejs') %>
+
+<body>
+
+  <main>
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>ML Model</h3>
+        </div>
+        <br>
+        <div id="result"></div>
+      </div>
+    </div>
+
+
+<script src="scriptModel.js"></script>
+
+<script>
+  
+
+const requestOptions = {
+method: "GET",
+};
+
+fetch(' http://localhost:3000/api/v1/admin/upload/<%=id%>', requestOptions)
+					.then(response => {
+						if (!response.ok) {
+							throw new Error('Network response was not ok');
+						}
+						return response.json();
+					})
+					.then(data => {
+						console.log('successful', data);
+						const resultDiv = document.getElementById('result');
+						if(data.result.error){
+							const error = data.result.error;
+						
+						resultDiv.innerHTML = `<div>
+	
+		<div   id="uploadForm">
+			<div class="form-header">
+				<h3>The Result</h3>
+			</div>
+			<br>
+			<div class="form-cont">
+				<div class="form-grp">
+					<div class="image-container">
+						<label>Form Image</label>
+						<img src= <%=img%> alt="Photo">
+					</div>
+				</div>
+				<br>
+			</div>
+			<br>
+			<div class="form-grp">
+				<label>Result</label>
+				<!-- <input type="text" /> -->
+					<div class="textbox">
+                ${error}
+					</div>
+			</div>
+			<br>
+			<div class="buttons">
+				<div>
+					<!-- <input type="submit" value="Save" /> -->
+					<a href="/isfalse/<%=id%>" >
+					<button id="f">
+						<h1><i class='bx bx-x'></i></h1>
+					</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+`;
+						}else{
+							const name = data.result.prediction;
+							const confidence = data.result.confidence;
+							const roundedNumber = confidence.toFixed(2); 
+							const slug = name.replace(/ /g, "-");
+							console.log(slug);
+							const img = data.result.image;
+							resultDiv.innerHTML = `<div>
+	
+		<div   id="uploadForm">
+			<div class="form-header">
+				<h3>The Result</h3>
+			</div>
+			<br>
+			<div class="form-cont">
+				<div class="form-grp">
+					<div class="image-container">
+						<label>Form Image</label>
+						<img src=<%=img%> alt="Photo">
+					</div>
+				</div>
+				<br>
+				<div class="form-grp">
+					<div class="image-container" >
+						<label>Result Image</label>
+						<img src="${img}" alt="Photo">
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="form-grp">
+				<label>Result</label>
+				<!-- <input type="text" /> -->
+					<div class="textbox">
+                    ${name}
+					</div>
+			</div>
+			<br>
+			<div class="form-grp">
+				<label>Confidence</label>
+				<!-- <input type="text" /> -->
+					<div class="textbox">
+                    ${roundedNumber} 
+					</div>
+			</div>
+			<br>
+				<div class="buttons">			
+				<div >
+					<a href="/istrue/${slug}/<%=id%>" >
+					<button id="t">
+						<h1><i class='bx bx-check'></i></h1>
+					</button>
+					</a>
+				</div>
+				<div >
+					<a href="/isfalse/<%=id%>" >
+					<button id="f">
+						<h1><i class='bx bx-x'></i></h1>
+					</button>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+`;
+						}
+					})
+					.catch(error => {
+						console.error('Error during upload:', error);
+						// Handle error during upload
+					});
+
+		</script>
+
+		<%- include('./shared/footer.ejs') %>

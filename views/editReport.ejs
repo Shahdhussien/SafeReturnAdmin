@@ -1,0 +1,38 @@
+<%- include('./shared/nav_side_bar.ejs') %>
+    <body>
+        <main>
+        <div class="table-data">
+        <div class="order">
+        <div class="head">
+        <h3> Edit Report Info</h3>
+        </div>
+            <form action="/updateFoundReport/<%=report._id%>" method="post" enctype="multipart/form-data" id="form">
+                <div class="form-grp">
+                    <label>Governorate</label>
+                    <div class="textbox">
+                        <%=report.governorate%>
+                    </div>
+                </div>
+                <div class="form-grp">
+                    <label>Date</label>
+                    <%var dateString=report.date%>
+                        <%var DOB=new Date(dateString)%>
+                            <%var month=DOB.toLocaleString('default', { month: 'short' });%>
+                                <%var day=DOB.getDate();%>
+                                    <%var year=DOB.getFullYear();%>
+                                        <%var displayDate=month + ' ' + (day < 10 ? '0' : '' ) + day + ' ' + year;%>
+                    <div class="textbox">
+                        <%= displayDate%>
+                    </div>
+                </div>
+                <div class="form-grp">
+                    <label>Orphanage Name</label>
+                    <input type="text" placeholder="Orphanage Name" name="orphanageName" value="<%=report.orphanageName%>" />
+                </div>
+                <div class="form-grp">
+            <input type="submit" value="Save" />
+        </div>
+    </form>
+</div>
+
+<%- include('./shared/footer.ejs') %>

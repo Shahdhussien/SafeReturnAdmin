@@ -1,0 +1,71 @@
+<%- include('./shared/nav_side_bar.ejs') %>
+
+    <body>
+      <main>
+        <div class="table-data">
+          <div class="order">
+            <div class="head">
+              <h3> Edit Child Info</h3>
+            </div>
+  <form action="/updateCitizen/<%=citizen._id%>" method="post" enctype="multipart/form-data" id="form">
+    <div class="form-grp">
+      <label>Name</label>
+      <input type="text" placeholder="Name" name="name" value="<%=citizen.name%>" />
+    </div>
+    <div class="form-grp">
+      <label>National Id</label>
+      <input type="text" placeholder="National Id" name="nationalID" value="<%=citizen.nationalID%>" />
+    </div>
+    <div class="form-grp">
+      <label>Birth date</label>
+      <%var dateString=citizen.DOB%>
+        <%var DOB=new Date(dateString)%>
+          <%var month=DOB.toLocaleString('default', { month: 'short' });%>
+            <%var day=DOB.getDate();%>
+              <%var year=DOB.getFullYear();%>
+                <%var displayDate=month + ' ' + (day < 10 ? '0' : '' ) + day + ' ' + year;%>
+                  <input type="date" placeholder="Birth date" name="DOB" value="<%= displayDate%>" />
+    </div>
+    <div class="form-grp">
+      <label>Country</label>
+      <input type="text" placeholder="Country" name="country" value="<%=citizen.country%>" />
+    </div>
+    <div class="form-grp">
+      <label>City</label>
+      <input type="text" placeholder="City" name="city" value="<%=citizen.city%>" />
+    </div>
+    <div class="form-grp">
+      <label>Street</label>
+      <input type="text" placeholder="Street" name="street" value="<%=citizen.street%>" />
+    </div>
+    <div class="form-grp">
+      <label>Parent Name</label>
+      <input type="text" placeholder="Parent Name" name="relativeName" value="<%=citizen.relativeName%>" />
+    </div>
+    <div class="form-grp">
+      <label>Parent Phone</label>
+      <input type="text" placeholder="Parent Phone" name="relativePhone" value="<%=citizen.relativePhone%>" />
+    </div>
+    <div class="form-grp">
+      <label>Parent National ID</label>
+      <input type="text" placeholder="Parent National" name="relativeNationalID"
+        value="<%=citizen.relativeNationalID%>" />
+    </div>
+    <div class="form-grp">
+      <label>relationship</label>
+      <input type="text" placeholder="relationship" name="relationship" value="<%=citizen.relationship%>" />
+    </div>
+    <div class="form-grp">
+      <label>Photo </label>
+      <input type="file" placeholder="" name="image" value="<%=citizen.image.secure_url%>" />
+    </div>
+    <div class="form-grp">
+      <input type="submit" value="Save" />
+    </div>
+  </form>
+          </div>
+  
+
+<%- include('./shared/footer.ejs') %>
+
+

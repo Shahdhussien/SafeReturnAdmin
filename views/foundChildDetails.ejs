@@ -1,0 +1,91 @@
+<%- include('./shared/nav_side_bar.ejs') %>
+
+    <body>
+        <main>
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Child Info</h3>
+                    </div>
+                    <form id="form">
+                        <div class="form-grp">
+                            <label>Name</label>
+                            <div class="textbox">
+                                <%=citizen.name%>
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>National Id</label>
+                            <div class="textbox">
+                                <%=citizen.nationalID%>
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>Birth date</label>
+                            <%var dateString=citizen.DOB%>
+                                <%var DOB=new Date(dateString)%>
+                                    <%var month=DOB.toLocaleString('default', { month: 'short' });%>
+                                        <%var day=DOB.getDate();%>
+                                            <%var year=DOB.getFullYear();%>
+                                                <%var displayDate=month + ' ' + (day < 10 ? '0' : '' ) + day + ' ' +
+                                                    year;%>
+                                                    <div class="textbox">
+                                                        <%= displayDate%>
+                                                    </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>Country</label>
+                            <div class="textbox">
+                                <%=citizen.country%>
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>City</label>
+                            <div class="textbox">
+                                <%=citizen.city%>
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>Street</label>
+                            <div class="textbox">
+                                <%=citizen.street%>
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>Parent Name</label>
+                            <div class="textbox">
+                                <%=citizen.relativeName%>
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>Parent Phone</label>
+                            <div class="textbox">
+                                <%=citizen.relativePhone%>
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>Parent National ID</label>
+                            <div class="textbox">
+                                <%=citizen.relativeNationalID%>
+                            </div>
+                        </div>
+                        <div class="form-grp">
+                            <label>relationship</label>
+                            <div class="textbox">
+                                <%=citizen.relationship%>
+                            </div>
+                        </div>
+<br>
+
+				<div class="form-grp">
+					<a href="/deleteFoundChildren/<%=id%>" >
+					<button id="f">
+						<h4>delete</h4>
+					</button>
+					</a>
+				</div>
+                </div>
+                </form>
+
+
+                <%- include('./shared/footer.ejs') %>

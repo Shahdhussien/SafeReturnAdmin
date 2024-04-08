@@ -1,0 +1,119 @@
+<%- include('./shared/nav_side_bar.ejs') %>
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                        <li>
+                            <a class="active" href="#">Home</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <ul class="box-info">
+                <li>
+                    <i class='bx bxs-group'></i>
+                    <span class="text">
+                        <h3><%=ccitizen%></h3>
+                        <p>Total Children</p>
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bxs-calendar-check'></i>
+                    <span class="text">
+                        <h3><%=cfreport%></h3>
+                        <p>Found Reports</p>
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bxs-calendar-check'></i>
+                    <span class="text">
+                        <h3><%=cmreport%></h3>
+                        <p>Missing Reports</p>
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bxs-group'></i>
+                    <span class="text">
+                        <h3><%=cfchild%></h3>
+                        <p>Found Children</p>
+                    </span>
+                </li>
+            </ul>
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3> Recent Reports</h3>
+                    </div>
+                    <table class="center">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Freporter Name</th>
+                                <th>Lreporter Name</th>
+                                <th>Reporter Number</th>
+                                <th>Governorate</th>
+                                <th class="date">Date</th>
+                                <th>Photo</th>
+                                <th>Actions</th>
+                            </tr>
+        
+                        </thead>
+                        <tbody>
+                            <% for(index=0; index<reports.length; index++){%>
+                                <tr>
+                                    <td>
+                                        <%=index+1%>
+                                    </td>
+                                    <td>
+                                        <%= reports[index].firstReporterName%>
+                                    </td>
+                                    <td>
+                                        <%= reports[index].lastReporterName%>
+                                    </td>
+                                    <td>
+                                        <%= reports[index].phoneNumber%>
+                                    </td>
+                                    <td>
+                                        <%= reports[index].governorate%>
+                                    </td>
+                                    <%var dateString=reports[index].date%>
+                                        <%var date=new Date(dateString)%>
+                                            <%var month=date.toLocaleString('default', { month: 'short' });%>
+                                                <%var day=date.getDate();%>
+                                                    <%var year=date.getFullYear();%>
+                                                        <%var displayDate=month + ' ' + (day < 10 ? '0' : '' ) + day + ' ' +
+                                                            year;%>
+                                                            <td>
+        
+                                                                <%= displayDate%>
+                                                            </td>
+        
+                                                            <td>
+                                                                <img src=<%=reports[index].image.secure_url%> alt="Photo">
+                                                            </td>
+                                                            <th>
+                                                                <a href="/model/<%=reports[index].id%>" id="a"><i
+                                                                        class='bx bxs-image'></i>
+                                                                </a>
+                                                                <a href="/deletefound/<%=reports[index].id%>" id="b"><i
+                                                                        class='bx bx-trash'></i>
+                                                                </a>
+                                                            </th>
+                                </tr>
+                                <%}%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+        
+        </main>
+                <%- include('./shared/footer.ejs')%>
