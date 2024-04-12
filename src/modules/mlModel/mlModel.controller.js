@@ -3,7 +3,7 @@ import { citizenModel } from "../../../database/models/citizen.model.js";
 import { AppError } from "../../utils/AppError.js";
 import { foundModel } from "../../../database/models/foundreport.model.js";
 import { catchError } from "../../utils/catcheError.js";
-
+import axios from 'axios';
 
 export const mlModel = catchError(async (req ,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signUp')
@@ -28,3 +28,20 @@ export const isfalse = catchError(async (req ,res,next)=>{
     !report && next(new AppError(`report  not found`,404))
     report && res.redirect('/home')
 })
+
+export const modelhandel = async (req, res) => {
+    try {
+        let report = await foundModel.findById(req.params.id)
+        const imageUrl = report.image.secure_url
+        console.log(imageUrl)
+        const mlModelEndpoint = 'http://127.0.0.1:5000/predictApi';
+        const mlResponse = await axios.post(mlModelEndpoint, {
+            imageUrl: imageUrl
+        }); 
+        const mlResult = mlResponse.data; 
+        return res.json({ success: true, result: mlResult });
+    } catch (error) {
+        console.error('Error processing image with Cloudinary and ML model:', error);
+        return res.status(500).json({ success: false, error: 'Error processing image with Cloudinary and ML model' });
+    }
+};

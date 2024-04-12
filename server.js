@@ -1,6 +1,8 @@
 import express from   'express';
 const app = express()
 const port = 3200
+import cors from 'cors'
+import morgan from 'morgan'
 import * as dotenv from 'dotenv'
 import session from 'express-session'
 import flash from 'connect-flash'
@@ -26,8 +28,9 @@ app.use(session({
     saveUninitialized:false,
     store
 }))
-
-
+app.use(cors())
+app.use(express.json())
+app.use(morgan('dev'))
 
 init(app)
 
