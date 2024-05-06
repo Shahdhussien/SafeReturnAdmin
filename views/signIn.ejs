@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/signIn.css">
+    <title>Sign In</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-in">
+            <form method="post" action="/handleLogin">
+                <h1>Sign In</h1>
+                <div class="social-icons">
+                    <a href="/google" class="icon1" onclick=""><i class="fa-brands fa-google-plus-g"></i></a>
+                
+                    <!-- <a href="#" class="icon1"><i class="fa-brands fa-google-plus-g"></i></a> -->
+                    <a href="/facebook" class="icon2"><i class="fa-brands fa-facebook-f"></i></a>
+                
+                </div>
+                <input type="email" placeholder="email" name="email">
+                <% if (error.find((val)=> val.path[0]=='email')?.message) { %>
+                    <div class="alert alert-danger">
+                        <%= error.find((val)=> val.path[0]=='email')?.message %>
+                    </div>
+                    <% } %>
+                <input type="password" placeholder="password" name="password">
+                <% if (error.find((val)=> val.path[0]=='password')?.message) { %>
+                    <div class="alert alert-danger">
+                        <%= error.find((val)=> val.path[0]=='password')?.message %>
+                    </div>
+                    <% } %>
+                <% if (error.find((val)=> val.path[0]=='wrongemail')?.message) { %>
+                    <div class="alert alert-danger">
+                        <%= error.find((val)=> val.path[0]=='wrongemail')?.message %>
+                    </div>
+                    <% } %>
+                <button type="submit" >Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <a href="/signUp"><button class="hidden" id="register">Sign Up</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -25,7 +25,7 @@ export const deleteCitizen =catchError(async(req,res,next)=>{
 
 //edit citizen page
 export const editCitizen =catchError(async(req,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
     let citizen = await citizenModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
     !citizen && next(new AppError(`child not found`,404))
     citizen && res.render('editCitizen.ejs',{citizen})
@@ -34,7 +34,7 @@ export const editCitizen =catchError(async(req,res,next)=>{
 
 //edit citizen
 export const updatetCitizen = catchError(async(req,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
     if(req.file){
     const {secure_url,public_id}=await cloudnairy.uploader.upload(req.file.path,{folder:`citizen/image`})
     req.body.image={secure_url,public_id}
@@ -49,16 +49,18 @@ export const updatetCitizen = catchError(async(req,res,next)=>{
 
 //addCitizenpage
 export const addCitizen = catchError(async(req,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
-    res.render('addCitizen.ejs');
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
+    res.render('addCitizen.ejs',{ isLoggedIn: false ,error:req.flash('info')});
 })
 
 
 //addCitizen
 export const addCitizens = catchError(async (req,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
     if(!req.file){
-        return next(new Error("image is required",{cause:400}))
+        return  res.render('addCitizen.ejs', {
+        error: [{ path: ['image'], message: 'Please upload the photo' }]
+    });
     }
     req.body.slug=slugify(req.body.name)
     const {secure_url,public_id}=await cloudnairy.uploader.upload(req.file.path,{folder:`citizen/image`})

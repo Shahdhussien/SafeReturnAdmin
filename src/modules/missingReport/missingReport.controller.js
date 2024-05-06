@@ -3,7 +3,7 @@ import { catchError } from "../../utils/catcheError.js";
 
 
 export const missingReport =catchError(async (req ,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
     let reports =await missingmodel.find()
     res.render('missingReport.ejs',{reports})
 })

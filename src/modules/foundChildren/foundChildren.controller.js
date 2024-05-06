@@ -5,21 +5,21 @@ import { catchError } from "../../utils/catcheError.js";
 
 
 export const foundChildren =catchError( async(req,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
     const foundchildrens =await foundChildmodel.find()
     res.render('foundChildren.ejs',{foundchildrens})
 })
 
 
 export const deleteFoundChildren =catchError(async(req,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
     const child = await foundChildmodel.findOneAndDelete({_id:req.params.id})
     !child && next (new AppError('child not found'))
     child && res.redirect('/foundChildren')
 })
 
 export const editFoundChildren =catchError( async(req,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
     let child = await foundChildmodel.findByIdAndUpdate(req.params.id,req.body,{new:true})
     !child && next (new AppError('child not found'))
     child && res.render('editFoundChildren.ejs',{child})
@@ -27,11 +27,12 @@ export const editFoundChildren =catchError( async(req,res,next)=>{
 
 
 export const updateFoundChildren = catchError(async(req,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
     if(req.file){
     const {secure_url,public_id}=await cloudnairy.uploader.upload(req.file.path,{folder:`citizen/image`})
     req.body.image={secure_url,public_id}
     }
+    console.log(req.body)
     const newReport=await foundChildmodel.findOneAndUpdate({_id:req.params.id},req.body,{new:true})
     !newReport && next (new AppError('child not found'))
     newReport&& res.redirect('/foundChildren')
@@ -39,7 +40,7 @@ export const updateFoundChildren = catchError(async(req,res,next)=>{
 
 
 export const foundChildrendetails = catchError(async(req,res,next)=>{
-    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    if(!req.session.isLoggedIn) return res.redirect('/signIn')
     let id=req.params.id
     let child = await foundChildmodel.findById(id)
     let citizen =await citizenModel.findOne({name:child.name})
@@ -47,7 +48,6 @@ export const foundChildrendetails = catchError(async(req,res,next)=>{
     res.render('foundChildDetails.ejs',{citizen,id})
     }
     res.render('foundChildDetails.ejs',{citizen,child,id})
-    res.redirect('/foundChildren')
 })
 
 

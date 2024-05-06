@@ -11,9 +11,13 @@ const MongoDBStore = connectSession(session)
 import { dbconnection } from './database/dbConnection.js'
 import { init } from './src/index.routes.js';
 
+import * as passportSetup from "./src/passport/passport.js";
+import passport from "passport";
+
 dotenv.config()
 
 //middleware
+app.use(passport.initialize());
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
 

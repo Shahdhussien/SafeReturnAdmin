@@ -602,13 +602,6 @@ img {
 }
 
 
-
-
-/* MAIN */
-/* CONTENT */
-/* table title */
-/*-------modal-style start------*/
-	
 .modal {
 	display: none;
 	position: fixed;
@@ -734,6 +727,15 @@ img {
 		min-width: 420px;
 	}
 	
+}
+
+.box-info li {
+	transition: transform 0.3s ease;
+}
+				
+.box-info li:hover {
+	transform: translateX(5px);
+	transform: translateY(5px);
 }
 
 #tnn {
@@ -940,6 +942,14 @@ input[type="text"] {
  	color: #333;
  }
 
+
+  .alert.alert-danger {
+     color: red;
+     font-size: 14px;
+     margin-top: 5px;
+     /* Adjust the margin as needed */
+ }
+
 	     @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
 	     @import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 	     @import "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css";
@@ -1032,3 +1042,4 @@ input[type="text"] {
 	     input[type="submit"]:hover {
 	     	background: #39a1f4;
 	     }
+

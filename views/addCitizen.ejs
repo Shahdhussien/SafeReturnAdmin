@@ -12,46 +12,101 @@
   <div class="form-grp">
     <label>Name</label>
     <input type="text" placeholder="Name" name="name" />
+    <% if (error.find((val)=> val.path[0]=='name')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='name')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>National Id</label>
     <input type="text" placeholder="National Id" name="nationalID" />
+    <% if (error.find((val)=> val.path[0]=='nationalID')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='nationalID')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>Birth date</label>
     <input type="date" placeholder="Birth date" name="DOB" />
+    <% if (error.find((val)=> val.path[0]=='DOB')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='DOB')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>Country</label>
     <input type="text" placeholder="Country" name="country" />
+    <% if (error.find((val)=> val.path[0]=='country')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='country')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>City</label>
     <input type="text" placeholder="City" name="city" />
+    <% if (error.find((val)=> val.path[0]=='city')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='city')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>Street</label>
     <input type="text" placeholder="Street" name="street" />
+    <% if (error.find((val)=> val.path[0]=='street')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='street')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>Parent Name</label>
     <input type="text" placeholder="Parent Name" name="relativeName" />
+    <% if (error.find((val)=> val.path[0]=='relativeName')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='relativeName')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>Parent Phone</label>
     <input type="text" placeholder="Parent Phone" name="relativePhone" />
+    <% if (error.find((val)=> val.path[0]=='relativePhone')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='relativePhone')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>Parent National</label>
     <input type="text" placeholder="Parent National" name="relativeNationalID" />
+    <% if (error.find((val)=> val.path[0]=='relativeNationalID')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='relativeNationalID')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>relationship</label>
     <input type="text" placeholder="relationship" name="relationship" />
+    <% if (error.find((val)=> val.path[0]=='relationship')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='relationship')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <label>Photo </label>
     <input type="file" placeholder="" name="image" />
+    <% if (error.find((val)=> val.path[0]=='image')?.message) { %>
+      <div class="alert alert-danger">
+        <%= error.find((val)=> val.path[0]=='image')?.message %>
+      </div>
+      <% } %>
   </div>
   <div class="form-grp">
     <input type="submit" value="Save" />

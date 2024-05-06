@@ -23,7 +23,7 @@ const requestOptions = {
 method: "GET",
 };
 
-fetch(' https://safereturnadmin.onrender.com/api/v1/mlModel/upload/<%=id%>', requestOptions)
+fetch(' http://localhost:3200/upload/<%=id%>', requestOptions)
 					.then(response => {
 						if (!response.ok) {
 							throw new Error('Network response was not ok');
@@ -79,7 +79,6 @@ fetch(' https://safereturnadmin.onrender.com/api/v1/mlModel/upload/<%=id%>', req
 							const confidence = data.result.confidence;
 							const roundedNumber = confidence.toFixed(2); 
 							const slug = name.replace(/ /g, "-");
-							console.log(slug);
 							const img = data.result.image;
 							resultDiv.innerHTML = `<div>
 	

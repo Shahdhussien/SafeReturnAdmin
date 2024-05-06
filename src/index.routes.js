@@ -17,12 +17,11 @@ app.use(homeRouter)
 app.use(foundChildrenRouter)
 app.use(foundReportRouter)
 app.use(missingReportRouter)
-app.use('/api/v1/mlModel',mlModelRouter)
+app.use(mlModelRouter)
 
 
 app.get('/' ,(req,res)=>{
-    
-    res.render('signUp.ejs')
+    res.render('signIn.ejs',{ isLoggedIn: false ,error:req.flash('info')})
 })
 
 app.all('*',(req,res,next)=>{

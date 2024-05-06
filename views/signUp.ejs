@@ -1,55 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="css/signUp.css">
-    <title>Safe Return Admin</title>
+
+    <title>Sign Up</title>
 </head>
-
 <body>
-
     <div class="container" id="container">
-        <div class="form-container sign-up">
-            <form method="POST" action="/handleRegister">
-                <h1>Create Account</h1>
-                <input type="text" placeholder="Name" name="userName">
-                <input type="email" placeholder="Email" name="email">
-                <input type="password" placeholder="Password" name="password">
-                <input type="password" placeholder="confirm Password" name="confirmPassword">
-                <button class="btn btn-default-outline my-4 w-100 rounded">Sign Up</button>
-            </form>
-        </div>
-        <div class="form-container sign-in">
-            <form method="POST" action="/handleLogin">
-                <h1>Sign In</h1>
-                <!--  -->
-                <input type="email" placeholder="Email" name="email">
-                <input type="password" placeholder="Password"  name="password">
-                <button class="btn btn-default-outline my-4 w-100 rounded">Sign In</button>
-                
-            </form>
-        </div>
-        <div class="toggle-container">
-            <div class="toggle">
-                <div class="toggle-panel toggle-left">
-                    <h1>Safe Return</h1>
-                    <p>Enter your personal details to use all of site features</p>
-                    <button class="hidden" id="login">Sign In</button>
-                    
-                </div>
-                <div class="toggle-panel toggle-right">
-                    <h1>Safe Return</h1>
-                    <p>Register with your personal details to use all of site features</p>
-                    <button class="hidden" id="register">Sign Up</button>
-                </div>
+    <div class="form-container sign-up">
+        <form method="post" action="/handleRegister">
+            <h1>Create Account</h1>
+            <div class="social-icons">
+                <a href="/google" class="icon1" onclick=""><i class="fa-brands fa-google-plus-g"></i></a>
+                <!-- <a href="#" class="icon1" onclick="loginwithgoogle()"><i class="fa-brands fa-google-plus-g"></i></a> -->
+                <!-- <a href="#" class="icon1" onclick={loginwithgoogle}><i class="fa-brands fa-google-plus-g"></i></a> -->
+                <a href="/facebook" class="icon2"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+            <input type="text" placeholder="username" name="userName">
+                <% if (error.find((val)=> val.path[0]=='userName')?.message) { %>
+                    <div class="alert alert-danger">
+                        <%= error.find((val)=> val.path[0]=='userName')?.message %>
+                    </div>
+                <% } %>
+                <input type="email" placeholder="email" name="email">
+                <% if (error.find((val)=> val.path[0]=='email')?.message) { %>
+                    <div class="alert alert-danger">
+                        <%= error.find((val)=> val.path[0]=='email')?.message %>
+                    </div>
+                <% } %>
+                <input type="password" placeholder="password" name="password">
+                <% if (error.find((val)=> val.path[0]=='password')?.message) { %>
+                    <div class="alert alert-danger">
+                        <%= error.find((val)=> val.path[0]=='password')?.message %>
+                    </div>
+                <% } %>
+                <input type="password" placeholder="confirm password" name="confirmPassword">
+                <% if (error.find((val)=> val.path[0]=='confirmPassword')?.message) { %>
+                    <div class="alert alert-danger">
+                        <%= error.find((val)=> val.path[0]=='confirmPassword')?.message %>
+                    </div>
+                <% } %>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
+                <h1>Welcome To SafeReturn!</h1>
+                <p>Enter your personal details to use all of site features</p>
+                <button class="hidden" id="login" onclick=`${window.location.href='/signIn'}`>Sign In</button>
             </div>
         </div>
     </div>
-
-    <script src="js/scriptSignUp.js"></script>
+</div>
+    </body>
 </body>
-
 </html>
