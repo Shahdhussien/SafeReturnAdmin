@@ -25,10 +25,7 @@ authRouter.get("/google/callback", passport.authenticate('google', { session: fa
     provider: "google",
   });
   if (!user) {
-    const customPassword = customAlphabet(
-      "123456789hhjgfdghyjukl;kjuhygtfrdsdfgtyhlkjh",
-      9
-    );
+    const customPassword = customAlphabet("123456789hhjgfdghyjukl;kjuhygtfrdsdfgtyhlkjh",9);
     console.log("Adding new Gmail user to DB..");
     const user = new adminModel({
       email: req.user.email,
@@ -62,10 +59,7 @@ authRouter.get('/facebook/callback',passport.authenticate('facebook', { session:
     provider: "facebook",
   });
   if (!user) {
-    const customPassword = customAlphabet(
-      "123456789hhjgfdghyjukl;kjuhygtfrdsdfgtyhlkjh",
-      9
-    );
+    const customPassword = customAlphabet("123456789hhjgfdghyjukl;kjuhygtfrdsdfgtyhlkjh",9);
     console.log("Adding new Facebook user to DB..");
     const user = new adminModel({
       accountId: req.user.id,
