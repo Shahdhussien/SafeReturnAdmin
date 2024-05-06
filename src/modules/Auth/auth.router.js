@@ -25,7 +25,7 @@ authRouter.get("/google/callback", passport.authenticate('google', { session: fa
     provider: "google",
   });
   if (!user) {
-    const customPassword = customAlphabet("123456789hhjgfdghyjukl;kjuhygtfrdsdfgtyhlkjh",9);
+    const customPassword = customAlphabet("123456789hhjggfdghyjukl;kjuhygtfrdsdfgtyhlkjh",9);
     console.log("Adding new Gmail user to DB..");
     const user = new adminModel({
       email: req.user.email,
