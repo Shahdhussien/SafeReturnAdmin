@@ -12,7 +12,7 @@ export const foundReport = catchError(async(req,res,next)=>{
 export const deleteFoundReport = catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     const report = await foundModel.findOneAndDelete({_id:req.params.id})
-    !report && next(new AppError(`Report not found`,404))
+    !report && res.redirect('/foundReport')
     report && res.redirect('/foundReport')
 })
 
@@ -20,7 +20,7 @@ export const deleteFoundReport = catchError(async(req,res,next)=>{
 export const deletefound = catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     const report = await foundModel.findOneAndDelete({_id:req.params.id})
-    !report && next(new AppError(`Report not found`,404))
+    !report && res.redirect('/foundReport')
     report && res.redirect('/home')
 })
 
@@ -28,7 +28,7 @@ export const deletefound = catchError(async(req,res,next)=>{
 export const editReport = catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     let report = await foundModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
-    !report && next(new AppError(`Report not found`,404))
+    !report && res.redirect('/foundReport')
     report && res.render('editReport.ejs',{report})
 })
 
@@ -40,7 +40,7 @@ export const updateFoundReport = catchError(async(req,res,next)=>{
     req.body.image={secure_url,public_id}
     }
     const newReport=await foundModel.findOneAndUpdate({_id:req.params.id},req.body,{new:true})
-    !newReport && next(new AppError(`Report not found`,404))
+    !newReport && res.redirect('/foundReport')
     newReport && res.redirect('/foundReport')
 })
 

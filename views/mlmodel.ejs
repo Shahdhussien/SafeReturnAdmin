@@ -1,150 +1,205 @@
 <%- include('./shared/nav_side_bar.ejs') %>
+	<style>
+		img {
+			width: 200px;
+			height: auto;
+			margin: 10px;
+			border-radius: 10px;
+			display: block;
+		}
 
-<body>
+		.loader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			transform: translateX(7%);
+			width: 100vw;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #eee;
+			transition: opacity 0.75s, visibility 0.75s;
+		}
 
-  <main>
-    <div class="table-data">
-      <div class="order">
-        <div class="head">
-          <h3>ML Model</h3>
-        </div>
-        <br>
-        <div id="result"></div>
-      </div>
-    </div>
+		.loader--hidden {
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		.loader::after {
+			content: "";
+			width: 70px;
+			height: 70px;
+			border: 14px solid #dddddd;
+			border-top-color: #3C91E6;
+			border-radius: 50%;
+			animation: loading 0.75s ease infinite;
+		}
+
+		@keyframes loading {
+			from {
+				transform: rotate(0turn);
+			}
+
+			to {
+				transform: rotate(1turn);
+			}
+		}
+	</style>
+
+	<body>
+
+		<main>
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>ML Model</h3>
+					</div>
+					<br>
+					<div id="result"></div>
+				</div>
+			</div>
+			<div class="loader"></div>
+
+			<script src="scriptModel.js"></script>
+
+			<script>
 
 
-<script src="scriptModel.js"></script>
+				const requestOptions = {
+					method: "GET",
+				};
+				window.addEventListener("load", () => {
+					const loader = document.querySelector(".loader");
+					const resultDiv = document.getElementById('result');
 
-<script>
-  
+					// Function to fetch data from the API
+					async function fetchData() {
+						try {
+							const response = await fetch('http://localhost:3200/upload/<%=id%>', { method: "GET" });
+							if (!response.ok) {
+								throw new Error('Network response was not ok');
+							}
+							const data = await response.json();
 
-const requestOptions = {
-method: "GET",
-};
+							// Process and display the data
+							if (data.result.error) {
+								const error = data.result.error;
+								resultDiv.innerHTML = `
+					<div id="uploadForm">
+						<div class="form-header">
+							<h3>The Result</h3>
+						</div>
+						<br>
+							<div class="form-cont">
+								<div class="form-grp">
+									<div class="image-container">
+										<label>Form Image</label>
+										<img src="<%=img%>" alt="Photo">
+									</div>
+								</div>
+								<br>
+							</div>
+							<br>
+								<div class="form-grp">
+									<label>Result</label>
+									<div class="textbox">${error}</div>
+								</div>
+								<br>
+									<div class="buttons">
+										<div>
+											<a href="/isfalse/<%=id%>">
+												<button id="f">
+													<h1><i class='bx bx-x'></i></h1>
+												</button>
+											</a>
+										</div>
+									</div>
+								</div>
+								`;
+							} else {
+								const name = data.result.prediction;
+								const confidence = data.result.confidence;
+								const roundedNumber = confidence.toFixed(2);
+								const slug = name.replace(/ /g, "-");
+								const img = data.result.image;
+								resultDiv.innerHTML = `
+								<div id="uploadForm">
+									<div class="form-header">
+										<h3>The Result</h3>
+									</div>
+									<br>
+										<div class="form-cont">
+											<div class="form-grp">
+												<div class="image-container">
+													<label>Form Image</label>
+													<img src="<%=img%>" alt="Photo">
+												</div>
+											</div>
+											<br>
+												<div class="form-grp">
+													<div class="image-container">
+														<label>Result Image</label>
+														<img src="${img}" alt="Photo">
+													</div>
+												</div>
+										</div>
+										<br>
+											<div class="form-grp">
+												<label>Result</label>
+												<div class="textbox">${name}</div>
+											</div>
+											<br>
+												<div class="form-grp">
+													<label>Confidence</label>
+													<div class="textbox">${roundedNumber}</div>
+												</div>
+												<br>
+													<div class="buttons">
+														<div>
+															<a href="/istrue/${slug}/<%=id%>">
+																<button id="t">
+																	<h1><i class='bx bx-check'></i></h1>
+																</button>
+															</a>
+														</div>
+														<div>
+															<a href="/isfalse/<%=id%>">
+																<button id="f">
+																	<h1><i class='bx bx-x'></i></h1>
+																</button>
+															</a>
+														</div>
+													</div>
+												</div>
+												`;
+							}
 
-fetch(' http://localhost:3200/upload/<%=id%>', requestOptions)
-					.then(response => {
-						if (!response.ok) {
-							throw new Error('Network response was not ok');
+							// Hide loader after data is processed
+							loader.classList.add("loader--hidden");
+
+							loader.addEventListener("transitionend", () => {
+								document.body.removeChild(loader);
+							});
+						} catch (error) {
+							console.error('Error during fetch:', error);
+							// Handle error during fetch
+							resultDiv.innerHTML = `
+												<img src="/img/loading-error.jpg" style="display: block; margin: 20px auto;">
+													<div class="error">Error loading data. Please try again later.</div>
+							`;
+							loader.classList.add("loader--hidden");
+							loader.addEventListener("transitionend", () => {
+								document.body.removeChild(loader);
+							});
 						}
-						return response.json();
-					})
-					.then(data => {
-						console.log('successful', data);
-						const resultDiv = document.getElementById('result');
-						if(data.result.error){
-							const error = data.result.error;
-						
-						resultDiv.innerHTML = `<div>
-	
-		<div   id="uploadForm">
-			<div class="form-header">
-				<h3>The Result</h3>
-			</div>
-			<br>
-			<div class="form-cont">
-				<div class="form-grp">
-					<div class="image-container">
-						<label>Form Image</label>
-						<img src= <%=img%> alt="Photo">
-					</div>
-				</div>
-				<br>
-			</div>
-			<br>
-			<div class="form-grp">
-				<label>Result</label>
-				<!-- <input type="text" /> -->
-					<div class="textbox">
-                ${error}
-					</div>
-			</div>
-			<br>
-			<div class="buttons">
-				<div>
-					<!-- <input type="submit" value="Save" /> -->
-					<a href="/isfalse/<%=id%>" >
-					<button id="f">
-						<h1><i class='bx bx-x'></i></h1>
-					</button>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-`;
-						}else{
-							const name = data.result.prediction;
-							const confidence = data.result.confidence;
-							const roundedNumber = confidence.toFixed(2); 
-							const slug = name.replace(/ /g, "-");
-							const img = data.result.image;
-							resultDiv.innerHTML = `<div>
-	
-		<div   id="uploadForm">
-			<div class="form-header">
-				<h3>The Result</h3>
-			</div>
-			<br>
-			<div class="form-cont">
-				<div class="form-grp">
-					<div class="image-container">
-						<label>Form Image</label>
-						<img src=<%=img%> alt="Photo">
-					</div>
-				</div>
-				<br>
-				<div class="form-grp">
-					<div class="image-container" >
-						<label>Result Image</label>
-						<img src="${img}" alt="Photo">
-					</div>
-				</div>
-			</div>
-			<br>
-			<div class="form-grp">
-				<label>Result</label>
-				<!-- <input type="text" /> -->
-					<div class="textbox">
-                    ${name}
-					</div>
-			</div>
-			<br>
-			<div class="form-grp">
-				<label>Confidence</label>
-				<!-- <input type="text" /> -->
-					<div class="textbox">
-                    ${roundedNumber} 
-					</div>
-			</div>
-			<br>
-				<div class="buttons">			
-				<div >
-					<a href="/istrue/${slug}/<%=id%>" >
-					<button id="t">
-						<h1><i class='bx bx-check'></i></h1>
-					</button>
-					</a>
-				</div>
-				<div >
-					<a href="/isfalse/<%=id%>" >
-					<button id="f">
-						<h1><i class='bx bx-x'></i></h1>
-					</button>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-`;
-						}
-					})
-					.catch(error => {
-						console.error('Error during upload:', error);
-						// Handle error during upload
-					});
+					}
 
-		</script>
+					// Fetch the data
+					fetchData();
+				});
+			</script>
 
-		<%- include('./shared/footer.ejs') %>
+
+			<%- include('./shared/footer.ejs') %>

@@ -25,9 +25,6 @@ menuBar.addEventListener('click', function () {
 
 
 
-
-
-
 const searchButton = document.querySelector('#content nav form .form-input button');
 const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
 const searchForm = document.querySelector('#content nav form');
@@ -43,7 +40,6 @@ searchButton.addEventListener('click', function (e) {
 		}
 	}
 })
-
 
 
 
@@ -127,7 +123,17 @@ switchMode.addEventListener('change', function () {
 		document.body.classList.remove('dark');
 	}
 })
+////////////Notifications////////////////
+var socket = io('https://safe-return.onrender.com');
+document.addEventListener('DOMContentLoaded', () => {
+	const notificationCount = document.getElementById('notificationCount');
+	
+	socket.emit('requestNotificationCount'); // Request the initial notification count when the page loads
 
+  socket.on('notificationCount', (count) => {
+    notificationCount.textContent = count;
+  });
+})
 
 
 

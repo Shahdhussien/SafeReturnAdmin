@@ -109,6 +109,15 @@
                                                             </th>
                                 </tr>
                                 <%}%>
+
+                                <% if (error.find((val)=> val.path[0] == 'child')) { %>
+                                    <script>
+                                        window.onload = function () {
+                                            alert("<%= error.find((val) => val.path[0] == 'child').message %>");
+                                        };
+                                    </script>
+                                    <% } %>
+
                         </tbody>
                     </table>
                 </div>

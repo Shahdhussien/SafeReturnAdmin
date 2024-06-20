@@ -1,5 +1,7 @@
 <%- include('./shared/nav_side_bar.ejs') %>
-
+<style>
+  
+</style>
     <body>
       <main>
         <div class="table-data">
@@ -28,7 +30,7 @@
       <% } %>
   </div>
   <div class="form-grp">
-    <label>Birth date</label>
+    <label >Birth date</label>
     <input type="date" placeholder="Birth date" name="DOB" />
     <% if (error.find((val)=> val.path[0]=='DOB')?.message) { %>
       <div class="alert alert-danger">

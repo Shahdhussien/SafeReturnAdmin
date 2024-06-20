@@ -1,8 +1,9 @@
 import express from 'express'
-import { missingReport } from './missingReport.controller.js'
+import {deleteMissingReport, missingReport } from './missingReport.controller.js'
 const missingReportRouter = express.Router()
 
 
-missingReportRouter.get('/missingReport',missingReport)
+missingReportRouter.get('/missingReport' , missingReport)
 
+missingReportRouter.get('/deleteMissingReport/:id',deleteMissingReport)
 export default missingReportRouter

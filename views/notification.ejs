@@ -1,0 +1,76 @@
+<%- include('./shared/nav_side_bar') %>
+<style>
+  .notification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .date {
+    color: gray;
+    font-size: small;
+  }
+
+  .trash {
+    margin-left: auto;
+  }
+
+  .message {
+    font-size: 1.2em;
+    color: black;
+  }
+
+  .form-grp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .form {
+    margin-bottom: 15px;
+  }
+
+  .trash a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+</style>
+<main>
+  <div class="table-data">
+    <div class="order">
+      <div class="head">
+        <h3>Notifications</h3>
+      </div>
+      <% if (notificaitions.length > 0) { %>
+          <% for(let index = 0; index < notificaitions.length; index++) { %>
+            <a href='/redirectNotification/<%=notificaitions[index]._id %>'>
+            <form id="form">
+            <div class="form-grp">
+              <div class="notificaition">
+           <p class="message"><%= notificaitions[index].message %></p>
+              <p class="date"><%= notificaitions[index].date  %></p>
+              <p class="date"><%= notificaitions[index].reportid %></p>
+              
+              </div>
+            <div class="trash">
+                <a href="/deleteNotification/<%=notificaitions[index]._id%>"><i class='bx bx-trash' id="b"></i>
+                  </div>
+                  </form>
+            </a>
+                 
+				</a>
+              
+            </div>
+            <br>
+          <% } %>
+
+      <% } else { %>
+        <p>No notificaitons found.</p>
+      <% } %>
+    </div>
+  </div>
+</main>
+
+
+<%- include('./shared/footer.ejs') %>

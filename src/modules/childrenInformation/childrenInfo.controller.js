@@ -17,8 +17,7 @@ export const childrenInfo =catchError(async(req,res,next)=>{
 export const deleteCitizen =catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signUp')
     const citizen = await citizenModel.findOneAndDelete({_id:req.params.id})
-    !citizen && next(new AppError(`child not found`,404))
-    citizen && res.redirect('/childerenInfo')
+    res.redirect("/childerenInfo");
 })
 
 
@@ -27,7 +26,7 @@ export const deleteCitizen =catchError(async(req,res,next)=>{
 export const editCitizen =catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     let citizen = await citizenModel.findByIdAndUpdate(req.params.id,req.body,{new:true})
-    !citizen && next(new AppError(`child not found`,404))
+    !citizen && res.redirect("/childerenInfo");
     citizen && res.render('editCitizen.ejs',{citizen})
 })
 
@@ -42,7 +41,7 @@ export const updatetCitizen = catchError(async(req,res,next)=>{
     req.body.slug=slugify(req.body.name)
     console.log(req.body.slug)
     const newcitizen=await citizenModel.findOneAndUpdate({_id:req.params.id},req.body,{new:true})
-    !newcitizen && next(new AppError(`child not found`,404))
+    !newcitizen && res.redirect("/childerenInfo");
     newcitizen && res.redirect('/childerenInfo')
 })
 

@@ -18,7 +18,8 @@ export const home =catchError(async (req ,res)=>{
     let ccitizen=await citizen.length
     let cfreport=await reports.length
     let cmreport=await mreport.length
-    res.render('dashboard.ejs',{reports,cfchild,cfreport,ccitizen,cmreport} );
+    res.render('dashboard.ejs',{reports,cfchild,cfreport,ccitizen,cmreport,isLoggedIn: false, error: req.flash("info")});
+
 })
 
 

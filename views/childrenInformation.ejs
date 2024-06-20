@@ -6,6 +6,31 @@
                 <div class="order">
                     <div class="head">
                         <h3>Children Information</h3>
+                            <style>
+                                .search-input {
+                                  border: none;
+                                  outline: none;
+                                  background-color: #F9F9F9;
+                                  width: 300px;
+                                }
+                              </style>
+                              
+                              <input id="searchInput" class="search-input" type="search"  placeholder="Search by national ID" />
+                              <i class="bx bx-search" onclick="focusSearchInput()"></i>
+                              <i class="bx bx-filter"></i>
+                              
+                              <script>
+                                function focusSearchInput() {
+                                  const searchInput = document.getElementById('searchInput');
+                                  searchInput.focus();
+                                  searchInput.classList.add('focused');
+                                }
+                              
+                                const searchInput = document.getElementById('searchInput');
+                                searchInput.addEventListener('blur', () => {
+                                  searchInput.classList.remove('focused');
+                                });
+                              </script>
                         <a href="/addCitizen" class="add-button" >
                             <button id="tnn"><i class='bx bx-plus-circle'></i><span class="text">New</span></button>
                         </a>
@@ -47,7 +72,8 @@
                                     <td> <%= row.relativePhone %></td>
                                     <td> <%= row.relativeNationalID%></td>
                                     <td> <%= row.relationship%></td>
-                                    <th>
+
+<th>
                                         <a href="/editCitizen/<%=row._id%>" id="a" >
                                             <i class='bx bxs-edit-alt'></i>
                                         </a>
@@ -63,8 +89,28 @@
         </main>
         <!-- MAIN -->
     </section>
+
+    
     <!-- CONTENT -->
     <script type="text/javascript">
- 	
+   function filterTable() {
+  var input = document.getElementById('searchInput').value.toLowerCase();
+  var table = document.getElementsByTagName('table')[0];
+  var rows = table.getElementsByTagName('tr');
+
+  for (var i = 0; i < rows.length; i++) {
+    var nationalIdColumn = rows[i].getElementsByTagName('td')[2];
+    if (nationalIdColumn) {
+      var nationalIdValue = nationalIdColumn.textContent || nationalIdColumn.innerText;
+      if (nationalIdValue.toLowerCase().includes(input)) {
+        rows[i].style.display = '';
+      } else {
+        rows[i].style.display = 'none';
+      }
+    }
+  }
+}
+
+document.getElementById('searchInput').addEventListener('input', filterTable);
 </script>
  <%- include('./shared/footer.ejs') %>

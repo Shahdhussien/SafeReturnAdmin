@@ -11,7 +11,6 @@ const foundChildschema=mongoose.Schema({
     },
     nationalID:{
         type:Number,
-        unique:true,
         trim:true,
         required:true
     },

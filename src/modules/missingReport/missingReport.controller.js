@@ -7,6 +7,10 @@ export const missingReport =catchError(async (req ,res,next)=>{
     let reports =await missingmodel.find()
     res.render('missingReport.ejs',{reports})
 })
-
+export const deleteMissingReport = async(req ,res)=>{
+    if(!req.session.isLoggedIn) return res.redirect('/signUp')
+    const report = await missingmodel.findOneAndDelete({_id:req.params.id})
+    res.redirect('/missingReport')
+}
 
 

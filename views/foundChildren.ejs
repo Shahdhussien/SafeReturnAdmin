@@ -1,68 +1,114 @@
 <%- include('./shared/nav_side_bar.ejs') %>
-	<!-- MAIN -->
-	<main>
-		<div class="table-data">
-			<div class="order">
-				<div class="head">
-					<h3> Found Children</h3>
-				</div>
-				<table class="center">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Photo</th>
-							<th>Child Name</th>
-							<th>Parent Name</th>
-							<th>Parent Phone</th>
-							<th>Orphanage Name</th>
-							<th>Updated</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% for( let index=0; index < foundchildrens.length; index++ ) { %>
-							<tr>
-								<td>
-									<%=index+1%>
-								</td>
-								<td> <img src="<%=foundchildrens[index].image.secure_url%>" alt="photo"> </td>
-								<td>
-									<%=foundchildrens[index].name%>
-								</td>
-								<td>
-									<%=foundchildrens[index].parentName%>
-								</td>
-								<td>
-									<%=foundchildrens[index].parentphone%>
-								</td>
-								<td>
-									<%=foundchildrens[index].orphanageName%>
-								</td>
-								<td>
-									<%=foundchildrens[index].updated%>
-								</td>
-								<th>
-									<a href="/foundChildrendetails/<%=foundchildrens[index].id%>" id="d"><i
-											class='bx bxs-user-detail'></i>
-									</a>
-									<a href="/editFoundChildren/<%=foundchildrens[index].id%>" id="a"><i
-											class='bx bxs-edit-alt'></i>
-									</a>
-									<a href="/deleteFoundChildren/<%=foundchildrens[index].id%>" id="b"><i
-											class='bx bx-trash'></i>
-									</a>
-								</th>
-							</tr>
-							<% } %>
+  <!-- MAIN -->
+  <main>
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3> Found Children</h3>
+          <style>
+            .search-input {
+              outline: none;
+              background-color: #F9F9F9;
+              width: 300px !important;
+        border-color: #F9F9F9 !important;
+            }
+            </style>
+            
+            <input id="search_Input" class="search-input" type="search" onkeyup="filterTable()" placeholder="Search by national ID"  />
+            <i class="bx bx-search"></i>
+            <i class="bx bx-filter"></i>
+      <script>
+        function focusSearchInput() {
+          const searchInput = document.getElementById('search_Input');
+          searchInput.focus();
+          searchInput.classList.add('focused');
+        }
+        
+        const searchInput = document.getElementById('search_Input');
+        searchInput.addEventListener('blur', () => {
+          searchInput.classList.remove('focused');
+        });
+        </script>
+        </div>
+        <table class="center">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>nationalID</th>
+              <th>Photo</th>
+              <th>Child Name</th>
+              <th>Parent Name</th>
+              <th>Parent Phone</th>
+              <th>Orphanage Name</th>
+              <th>Updated</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for( let index=0; index < reports.length; index++ ) { %>
+              <tr>
+                <td>
+                  <%=index+1%>
+                </td>
+                <td>
+                  <%=reports[index].nationalID%>
+                </td>
+                <td> <img src="<%=reports[index].image.secure_url%>" alt="photo"> </td>
+                <td>
+                  <%=reports[index].name%>
+                </td>
+                <td>
+                  <%=reports[index].parentName%>
+                </td>
+                <td>
+                  <%=reports[index].parentphone%>
+                </td>
+                <td>
+                  <%=reports[index].orphanageName%>
+                </td>
+                <td>
+                  <%=reports[index].updated%>
+                </td>
+                <th>
+                  <a href="/foundChildrendetails/<%=reports[index].id%>" id="d"><i
+                      class='bx bxs-user-detail'></i>
+                  </a>
+                  <a href="/editFoundChildren/<%=reports[index].id%>" id="a"><i
+                      class='bx bxs-edit-alt'></i>
+                  </a>
+                  <a href="/deleteFoundChildren/<%=reports[index].id%>" id="b"><i
+                      class='bx bx-trash'></i>
+                  </a>
+                </th>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
+  </main>
+  </section>
+  <script type="text/javascript">
+    function filterTable() {
+   var input = document.getElementById('search_Input').value.toLowerCase();
+   var table = document.getElementsByTagName('table')[0];
+   var rows = table.getElementsByTagName('tr');
+   
+   for (var i = 0; i < rows.length; i++) {
+     var nationalIdColumn = rows[i].getElementsByTagName('td')[1];
+     if (nationalIdColumn) {
+     var nationalIdValue = nationalIdColumn.textContent || nationalIdColumn.innerText;
+     if (nationalIdValue.toLowerCase().includes(input)) {
+       rows[i].style.display = '';
+     } else {
+       rows[i].style.display = 'none';
+     }
+     }
+   }
+   }
+   document.getElementById('search_Input').addEventListener('input', filterTable);
 
-
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-	</main>
-	</section>
-	<!-- MAIN -->
-	<%- include('./shared/footer.ejs') %>
+   </script>
+  <!-- MAIN -->
+  <%- include('./shared/footer.ejs') %>

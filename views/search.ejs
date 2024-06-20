@@ -1,23 +1,33 @@
 <%- include('./shared/nav_side_bar.ejs') %>
 
-<style>
-h1 {
-margin-top: 40px;
-}
-h2,h1{
-color: #4a4646; 
-text-align: center;
-font-size: 30px;
-font-family:  Arial, sans-serif;
-}
-</style>
-</head>
+    <style>
+        h1 {
+            margin-top: 40px;
+        }
 
-<body>
-    <h1>We didn't find any results</h1>
-    <h2>Make sure everything is spelled correctly.</h2>
-</body>
+        h2,
+        h1 {
+            color: #4a4646;
+            text-align: center;
+            font-size: 30px;
+            font-family: Arial, sans-serif;
+        }
+        img {
+            width: 200px; 
+            height: auto; 
+            margin: 10px; 
+            border-radius: 10px; 
+            display: block; 
+        }
 
-<%- include('./shared/footer.ejs') %>
+    </style>
+    </head>
 
+    <body>
+        <img src="/img/search.jpg"  style="display: block; margin: 20px auto;">
+        <h1>We didn't find any results</h1>
+        <h2>Make sure everything is spelled correctly.</h2>
+    </body>
 
+    <%- include('./shared/footer.ejs') %>
+    

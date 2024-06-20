@@ -362,13 +362,6 @@ body {
 }
 /* Main */
 
-#content main {
-	width: 100%;
-	padding: 36px 24px;
-	font-family: var(--poppins);
-	max-height: calc(100vh - 56px);
-	overflow-y: auto;
-}
 #content main .head-title {
 	display: flex;
 	align-items: center;
@@ -389,23 +382,9 @@ body {
 	padding: 36px 24px;
 	font-family: var(--poppins);
 	max-height: calc(100vh - 56px);
-	overflow-y: auto;
+	overflow-y:unset;
 }
 
-#content main .head-title {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	grid-gap: 16px;
-	flex-wrap: wrap;
-}
-
-#content main .head-title .left h1 {
-	font-size: 36px;
-	font-weight: 600;
-	margin-bottom: 10px;
-	color: var(--dark);
-}
 
 #content main .head-title .left .breadcrumb {
 	display: flex;
@@ -427,48 +406,7 @@ body {
 	pointer-events: unset;
 }
 
-#content main {
-	width: 100%;
-	padding: 36px 24px;
-	font-family: var(--poppins);
-	max-height: calc(100vh - 56px);
-	overflow-y: auto;
-}
 
-#content main .head-title {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	grid-gap: 16px;
-	flex-wrap: wrap;
-}
-
-#content main .head-title .left h1 {
-	font-size: 36px;
-	font-weight: 600;
-	margin-bottom: 10px;
-	color: var(--dark);
-}
-
-#content main .head-title .left .breadcrumb {
-	display: flex;
-	align-items: center;
-	grid-gap: 16px;
-}
-
-#content main .head-title .left .breadcrumb li {
-	color: var(--dark);
-}
-
-#content main .head-title .left .breadcrumb li a {
-	color: var(--dark-grey);
-	pointer-events: none;
-}
-
-#content main .head-title .left .breadcrumb li a.active {
-	color: var(--blue);
-	pointer-events: unset;
-}
 
 #content main .box-info {
 	display: grid;
@@ -540,12 +478,15 @@ body {
 	overflow: auto;
 }
 
+
 #content main .table-data>div {
 	border-radius: 20px;
 	background: var(--light);
 	padding: 24px;
 	overflow-x: auto;
 }
+
+
 
 #content main .table-data .head {
 	display: flex; 
@@ -601,74 +542,6 @@ img {
 	vertical-align: middle;
 }
 
-
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1000;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.4);
-  }
-  .modal .modal-content{
-	background-color: #ffffff;
-	border-radius: 3px;
-	width: 600px;
-  }
-  .modal .modal-dialog {
-	position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 700px;
-  height: auto; /* Adjust the height as needed */
-  z-index: 9999; /* Set a high z-index value to bring the form to the front */
-  }
-  
-  .modal .modal-header,
-  .modal .modal-body,
-  .modal .modal-footer {
-	padding: 20px 30px;
-  }
-  
-  .modal .modal-content {
-	border-radius: 3px;
-  }
-  
-  .modal .modal-footer {
-	background: #ecf0f1;
-	border-radius: 0 0 3px 3px;
-  }
-  
-  .modal .modal-title {
-	display: inline-block;
-  }
-  
-  .modal .form-control {
-	border-radius: 2px;
-	box-shadow: none;
-	border-color: #dddddd;
-  }
-
-  
-  .modal .btn {
-	border-radius: 2px;
-	min-width: 100px;
-  }
-  
-  .modal form label {
-	font-weight: normal;
-  }	  
-	   	   /*-------modal-style end------*/
-		   
-/* table title */	
-
-  /*==========================================================
-   main-content inner card design  end
-  ================================*/
 
 @media screen and (max-width: 768px) {
 	#sidebar {
@@ -779,70 +652,7 @@ img {
 
 }
 
-/* Modal */
-.modal {
-	display: none;
-	
-	position: fixed;
-	z-index: 1000;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	
-	overflow: auto;
-}
 
-
-.close:hover,
-.close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-label {
-	font-weight: bold;
-	display: block;
-	margin-bottom: 5px;
-}
-
-input[type="text"] {
-	width: calc(100% - 20px);
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
-}
-
-
-.modal-footer {
-	margin-top: 20px;
-	text-align: right;
-}
-
-
-.btn {
-	padding: 10px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-.cancel {
-	background-color: #ccc;
-}
-
-.save {
-	background-color: #007bff;
-	color: #fff;
-}
-
-
-.btn:hover {
-	opacity: 0.8;
-}
 
  body {
  	margin: 0;
@@ -1042,4 +852,16 @@ input[type="text"] {
 	     input[type="submit"]:hover {
 	     	background: #39a1f4;
 	     }
-
+.error {
+	font-size: 25px;
+	color: #4c4a4a;
+	text-align: center;
+	margin: 40px auto;
+	width: 80%;
+}
+.search-input {
+	border: none;
+	outline: none;
+	background-color: #F9F9F9;
+	width: 300px;
+  }

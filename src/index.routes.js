@@ -7,6 +7,7 @@ import missingReportRouter from './modules/missingReport/missingReport.router.js
 import mlModelRouter from './modules/mlModel/mlModel.router.js';
 import { AppError } from './utils/AppError.js';
 import { globalErrorMiddleware } from './utils/globalErrMiddleware.js';
+import notificationRouter from './modules/notification/notification.router.js';
 
 
 export function init(app){
@@ -18,7 +19,7 @@ app.use(foundChildrenRouter)
 app.use(foundReportRouter)
 app.use(missingReportRouter)
 app.use(mlModelRouter)
-
+app.use(notificationRouter)
 
 app.get('/' ,(req,res)=>{
     res.render('signIn.ejs',{ isLoggedIn: false ,error:req.flash('info')})
@@ -27,6 +28,7 @@ app.get('/' ,(req,res)=>{
 app.all('*',(req,res,next)=>{
     next(new AppError("invalid url - can't access this endpoint "+req.originalUrl,404))
 })
+
 
 app.use(globalErrorMiddleware)
 }

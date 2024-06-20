@@ -2,8 +2,63 @@
 
 <!-- CONTENT -->
 
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
 
 <script src="/js/script.js"></script>
-</body>
 
-</html>
+</body>
+<!-- <div class="loader"></div>
+<style>
+    .loader {
+			position: fixed;
+			top: 0;
+			left: 0;
+            transform: translateX(7%); 
+			width: 100vw;
+			height: 100vh;
+			display: flex;
+			align-items:center;
+			justify-content: center; 
+			background: #eee;
+			transition: opacity 0.75s, visibility 0.75s;
+		}
+
+    .loader--hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .loader::after {
+			content: "";
+			width: 70px;
+			height: 70px;
+			border: 14px solid #dddddd;
+			border-top-color: #3C91E6;
+			border-radius: 50%;
+			animation: loading 0.75s ease infinite;
+		}
+
+
+    @keyframes loading {
+        from {
+            transform: rotate(0turn);
+        }
+
+        to {
+            transform: rotate(1turn);
+        }
+    }
+</style>
+
+<script>
+    window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+
+        loader.classList.add("loader--hidden");
+
+        loader.addEventListener("transitionend", () => {
+            document.body.removeChild(loader);
+        });
+    });
+</script>
+</html> -->

@@ -6,22 +6,22 @@ import { catchError } from "../../utils/catcheError.js";
 
 export const foundChildren =catchError( async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
-    const foundchildrens =await foundChildmodel.find()
-    res.render('foundChildren.ejs',{foundchildrens})
+    const reports =await foundChildmodel.find()
+    res.render("foundChildren.ejs", { reports });
 })
 
 
 export const deleteFoundChildren =catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     const child = await foundChildmodel.findOneAndDelete({_id:req.params.id})
-    !child && next (new AppError('child not found'))
+    !child && res.redirect('/foundChildren')
     child && res.redirect('/foundChildren')
 })
 
 export const editFoundChildren =catchError( async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     let child = await foundChildmodel.findByIdAndUpdate(req.params.id,req.body,{new:true})
-    !child && next (new AppError('child not found'))
+    !child && res.redirect('/foundChildren')
     child && res.render('editFoundChildren.ejs',{child})
 })
 
@@ -34,7 +34,7 @@ export const updateFoundChildren = catchError(async(req,res,next)=>{
     }
     console.log(req.body)
     const newReport=await foundChildmodel.findOneAndUpdate({_id:req.params.id},req.body,{new:true})
-    !newReport && next (new AppError('child not found'))
+    !newReport && res.redirect('/foundChildren')
     newReport&& res.redirect('/foundChildren')
 })
 
