@@ -18,35 +18,86 @@ authRouter.post('/handleRegister' ,validation(signUpAdminSchema,'/signUp'),handl
 authRouter.get('/logout',logout)
 authRouter.get("/google", passport.authenticate('google', { scope: ['profile', 'email'] }))
 
+// authRouter.get("/google/callback", passport.authenticate('google', { session: false }), async (req, res) => {
+
+//   let user = await adminModel.findOne({
+//     email: req.user.email,
+//     provider: "google",
+//   });
+//   if (!user) {
+//     const customPassword = customAlphabet("123456789hhjggfdghyjukl;kjuhygtfrdsdfgtyhlkjh",9);
+//     console.log("Adding new Gmail user to DB..");
+//     let user = new adminModel({
+//       email: req.user.email,
+//       userName: req.user.displayName,
+//       provider: req.user.provider,
+//       password: customPassword,
+//     });
+//     await user.save();
+//     console.log("lllllllllllllllllllll");
+//     console.log(user);
+//   } else {
+//     console.log("Gmail User already exist in DB..");
+//     console.log(user);
+//   }
+//   console.log("jjjjjjjjjjjjjjj");
+//   console.log(user);
+//   console.log("idd");
+//   // console.log(user._id);
+//   console.log(("jjjjjjjjjjjjjjj"));
+//   console.log(user.userName);
+//   console.log(user.id);
+//   // if(!user){
+//   //   return res.redirect('/signUp')
+//   // }
+  
+
+//    req.session.userId = user.id;
+//    req.session.name = user.userName;
+//    req.session.isLoggedIn = true;
+//    // expiry cookies
+//    var time = 360 * 24 * Math.pow(10, 4);
+//    req.session.cookie.expires = new Date(Date.now() + time);
+//    req.session.cookie.maxAge = time;
+//   res.redirect("/home");
+// })
+
 authRouter.get("/google/callback", passport.authenticate('google', { session: false }), async (req, res) => {
 
-  const user = await adminModel.findOne({
+  let user = await adminModel.findOne({
     email: req.user.email,
     provider: "google",
   });
   if (!user) {
     const customPassword = customAlphabet("123456789hhjggfdghyjukl;kjuhygtfrdsdfgtyhlkjh",9);
     console.log("Adding new Gmail user to DB..");
-    const user = new adminModel({
+    let newuser = new adminModel({
       email: req.user.email,
       userName: req.user.displayName,
       provider: req.user.provider,
       password: customPassword,
     });
-    await user.save();
-    console.log(user);
+    await newuser.save();
+    console.log(newuser);
+     req.session.userId = newuser._id;
+     req.session.name = newuser.userName;
+     req.session.isLoggedIn = true;
+     var time = 360 * 24 * Math.pow(10, 4);
+     req.session.cookie.expires = new Date(Date.now() + time);
+     req.session.cookie.maxAge = time;
+     res.redirect("/home");
   } else {
     console.log("Gmail User already exist in DB..");
     console.log(user);
+     req.session.userId = user._id;
+     req.session.name = user.userName;
+     req.session.isLoggedIn = true;
+     // expiry cookies
+     var time = 360 * 24 * Math.pow(10, 4);
+     req.session.cookie.expires = new Date(Date.now() + time);
+     req.session.cookie.maxAge = time;
+     res.redirect("/home");
   }
-   req.session.userId = user.id;
-   req.session.name = user.userName;
-   req.session.isLoggedIn = true;
-   // expiry cookies
-   var time = 360 * 24 * Math.pow(10, 4);
-   req.session.cookie.expires = new Date(Date.now() + time);
-   req.session.cookie.maxAge = time;
-  res.redirect("/home");
 })
 
 
@@ -61,26 +112,34 @@ authRouter.get('/facebook/callback',passport.authenticate('facebook', { session:
   if (!user) {
     const customPassword = customAlphabet("123456789hhjgfdghyjukl;kjuhygtfrdsdfgtyhlkjh",9);
     console.log("Adding new Facebook user to DB..");
-    const user = new adminModel({
+    const newuser = new adminModel({
       accountId: req.user.id,
       userName: req.user.displayName,
       provider: req.user.provider,
       password: customPassword,
     });
-    await user.save();
-    console.log(user);
+    await newuser.save();
+    console.log(newuser);
+    req.session.userId = newuser._id;
+    req.session.name = newuser.userName;
+    req.session.isLoggedIn = true;
+    var time = 360 * 24 * Math.pow(10, 4);
+    req.session.cookie.expires = new Date(Date.now() + time);
+    req.session.cookie.maxAge = time;
+    res.redirect("/home");
+
   } else {
     console.log("Gmail User already exist in DB..");
     console.log(user);
+    req.session.userId = user._id;
+    req.session.name = user.userName;
+    req.session.isLoggedIn = true;
+    var time = 360 * 24 * Math.pow(10, 4);
+    req.session.cookie.expires = new Date(Date.now() + time);
+    req.session.cookie.maxAge = time;
+    res.redirect("/home");
   }
-   req.session.userId = user._id;
-   req.session.name = user.userName;
-   req.session.isLoggedIn = true;
-   // expiry cookies
-   var time = 360 * 24 * Math.pow(10, 4);
-   req.session.cookie.expires = new Date(Date.now() + time);
-   req.session.cookie.maxAge = time;
-  res.redirect("/home");
+
 })
 
 export default authRouter
