@@ -20,7 +20,7 @@ export const deleteFoundReport = catchError(async(req,res,next)=>{
 export const deletefound = catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     const report = await foundModel.findOneAndDelete({_id:req.params.id})
-    !report && res.redirect('/foundReport')
+    !report && res.redirect('/home')
     report && res.redirect('/home')
 })
 

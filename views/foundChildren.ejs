@@ -34,8 +34,8 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>nationalID</th>
               <th>Photo</th>
+              <th>nationalID</th>
               <th>Child Name</th>
               <th>Parent Name</th>
               <th>Parent Phone</th>
@@ -50,10 +50,10 @@
                 <td>
                   <%=index+1%>
                 </td>
+                <td> <img src="<%=reports[index].image.secure_url%>" alt="photo"> </td>
                 <td>
                   <%=reports[index].nationalID%>
                 </td>
-                <td> <img src="<%=reports[index].image.secure_url%>" alt="photo"> </td>
                 <td>
                   <%=reports[index].name%>
                 </td>

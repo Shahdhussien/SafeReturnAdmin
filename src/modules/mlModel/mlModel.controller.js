@@ -19,7 +19,7 @@ export const mlModel = catchError(async (req ,res,next)=>{
 export const model =catchError( async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     let report = await foundModel.findById({_id:req.params.id})
-    !report && next(new AppError(`Report not found`,404))
+    !report && res.redirect("/home");
     const id=report.id
     const img =report.image.secure_url
     res.render('mlmodel.ejs',{img,id});
@@ -37,7 +37,7 @@ export const istrue = catchError(async (req ,res,next)=>{
             let cfreport = await reports.length;
             let cmreport = await mreport.length;
     const Child =await citizenModel.findOne({slug:req.params.name})
-    !Child && next(new AppError(`child  not found`,404))
+    !Child && res.redirect("/home");
     const Fchild = await foundChildmodel.findOne({nationalID:Child.nationalID});
     if(Fchild) {
         await foundModel.findOneAndDelete({ _id: req.params.id })
@@ -47,7 +47,7 @@ export const istrue = catchError(async (req ,res,next)=>{
     const foundChild = await foundChildmodel.insertMany({name:Child.name,image:Child.image,parentName:Child.relativeName,
     parentphone:Child.relativePhone,nationalID:Child.nationalID})
     let report = await foundModel.findOneAndDelete({_id:req.params.id})
-    !report && next(new AppError(`Report not found`,404))
+    !report && res.redirect("/home");
     res.redirect('/home')
 })
 
@@ -56,7 +56,7 @@ export const istrue = catchError(async (req ,res,next)=>{
 export const isfalse = catchError(async (req ,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     let report = await foundModel.findByIdAndUpdate({_id:req.params.id},{exist:true})
-    !report && next(new AppError(`report not found`,404))
+    !report && res.redirect("/home");
     report && res.redirect('/home')
 })
 

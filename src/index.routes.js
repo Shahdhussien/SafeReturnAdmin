@@ -6,7 +6,7 @@ import foundReportRouter from './modules/foundReport/foundReport.router.js';
 import missingReportRouter from './modules/missingReport/missingReport.router.js';
 import mlModelRouter from './modules/mlModel/mlModel.router.js';
 import { AppError } from './utils/AppError.js';
-import { globalErrorMiddleware } from './utils/globalErrMiddleware.js';
+import { globalErrorMiddleware } from "./utils/globalErrMiddleware.js";
 import notificationRouter from './modules/notification/notification.router.js';
 
 
@@ -26,7 +26,8 @@ app.get('/' ,(req,res)=>{
 })
 
 app.all('*',(req,res,next)=>{
-    next(new AppError("invalid url - can't access this endpoint "+req.originalUrl,404))
+    if (!req.session.isLoggedIn) return res.redirect("/signIn");
+    res.redirect("/home");
 })
 
 
