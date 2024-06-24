@@ -1,3 +1,4 @@
+import { adminNotifModel } from "../../../database/models/adminNotifi.model.js";
 import { citizenModel } from "../../../database/models/citizen.model.js";
 import { foundChildmodel } from "../../../database/models/foundchildren.model.js"
 import { AppError } from "../../utils/AppError.js";
@@ -6,16 +7,22 @@ import { catchError } from "../../utils/catcheError.js";
 
 export const foundChildren =catchError( async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
-    const reports =await foundChildmodel.find()
-    res.render("foundChildren.ejs", { reports });
+    const children = await foundChildmodel.find();
+    res.render("foundChildren.ejs", {children });
 })
 
 
 export const deleteFoundChildren =catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     const child = await foundChildmodel.findOneAndDelete({_id:req.params.id})
-    !child && res.redirect('/foundChildren')
-    child && res.redirect('/foundChildren')
+    !child && res.redirect("/foundChildren");
+    if (child) {
+        let h=await adminNotifModel.find({ reportid: child.id });
+        for(let i=0;i<h.length;i++){
+            await adminNotifModel.findOneAndDelete({ reportid: child.id });
+        }
+        return res.redirect('/foundChildren')
+    }    
 })
 
 export const editFoundChildren =catchError( async(req,res,next)=>{

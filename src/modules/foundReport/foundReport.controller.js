@@ -1,3 +1,4 @@
+import { adminNotifModel } from "../../../database/models/adminNotifi.model.js"
 import { foundModel } from "../../../database/models/foundreport.model.js"
 import { AppError } from "../../utils/AppError.js"
 import { catchError } from "../../utils/catcheError.js"
@@ -13,7 +14,10 @@ export const deleteFoundReport = catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     const report = await foundModel.findOneAndDelete({_id:req.params.id})
     !report && res.redirect('/foundReport')
-    report && res.redirect('/foundReport')
+    if(report) {
+    await adminNotifModel.findOneAndDelete({reportid:report.id})
+    return res.redirect('/foundReport')
+    } 
 })
 
 
@@ -21,7 +25,10 @@ export const deletefound = catchError(async(req,res,next)=>{
     if(!req.session.isLoggedIn) return res.redirect('/signIn')
     const report = await foundModel.findOneAndDelete({_id:req.params.id})
     !report && res.redirect('/home')
-    report && res.redirect('/home')
+    if (report) {
+        await adminNotifModel.findOneAndDelete({ reportid: report.id });
+        return res.redirect('/home')
+    }
 })
 
 

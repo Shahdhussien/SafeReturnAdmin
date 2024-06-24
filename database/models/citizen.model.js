@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const citizenSchema=mongoose.Schema({
+const citizenSchema=new mongoose.Schema({
     image:Object,
     name:{
         type:String,

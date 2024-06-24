@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const missingschema=mongoose.Schema({
+const missingschema=new mongoose.Schema({
     firstReporterName:{
         type: String,
         minLenth:[2,'name too short'],

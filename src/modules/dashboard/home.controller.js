@@ -1,7 +1,6 @@
 import { missingmodel } from "../../../database/models/missingreport.model.js";
 import { citizenModel } from "../../../database/models/citizen.model.js";
 import { foundModel } from "../../../database/models/foundreport.model.js";
-import { userModel } from "../../../database/models/user.model.js";
 import { foundChildmodel } from "../../../database/models/foundchildren.model.js";
 import { catchError } from "../../utils/catcheError.js";
 import { AppError } from "../../utils/AppError.js";
@@ -13,13 +12,11 @@ export const home =catchError(async (req ,res)=>{
     let fchild = await foundChildmodel.find()
     let reports = await foundModel.find({exist:false})
     let mreport = await missingmodel.find()
-    let users = await userModel.find()
-    let cfchild=await fchild.length
-    let ccitizen=await citizen.length
-    let cfreport=await reports.length
-    let cmreport=await mreport.length
+    let cfchild= fchild.length
+    let ccitizen= citizen.length
+    let cfreport=reports.length
+    let cmreport=mreport.length
     res.render('dashboard.ejs',{reports,cfchild,cfreport,ccitizen,cmreport,isLoggedIn: false, error: req.flash("info")});
-
 })
 
 

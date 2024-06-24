@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const adminNotifSchema=mongoose.Schema({
+const adminNotifSchema=new mongoose.Schema({
     message:{
         type:String,
         trim:true,
@@ -17,15 +17,15 @@ const adminNotifSchema=mongoose.Schema({
             return `${year}-${month}-${day} ${hour}:${minute}`;
         }
     },
-    id:{
-    type:String
+    reportid:{
+        type:String
     },
     page:{
         type:String
     },
     table:{
         type:String
-    },
+    }
 },{timestamps:true})
 
 export const adminNotifModel = mongoose.model('adminNotification',adminNotifSchema)

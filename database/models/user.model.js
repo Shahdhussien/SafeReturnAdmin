@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema=mongoose.Schema({
+const userSchema=new mongoose.Schema({
     Fname:{
         type: String,
         minLenth:[2,'name too short'],

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const foundChildschema=mongoose.Schema({
+const foundChildschema=new mongoose.Schema({
     image:Object,
     name:{
         type:String,
