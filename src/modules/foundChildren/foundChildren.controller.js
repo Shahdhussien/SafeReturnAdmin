@@ -17,10 +17,7 @@ export const deleteFoundChildren =catchError(async(req,res,next)=>{
     const child = await foundChildmodel.findOneAndDelete({_id:req.params.id})
     !child && res.redirect("/foundChildren");
     if (child) {
-        let h=await adminNotifModel.find({ reportid: child.id });
-        for(let i=0;i<h.length;i++){
-            await adminNotifModel.findOneAndDelete({ reportid: child.id });
-        }
+        await adminNotifModel.findOneAndDelete({ reportid: child.id });
         return res.redirect('/foundChildren')
     }    
 })

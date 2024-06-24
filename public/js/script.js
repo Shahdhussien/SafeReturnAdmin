@@ -124,7 +124,7 @@ switchMode.addEventListener('change', function () {
 	}
 })
 ////////////Notifications////////////////
-var socket = io('https://safe-return.onrender.com');
+var socket = io("https://safereturn.onrender.com");
 document.addEventListener('DOMContentLoaded', () => {
 	const notificationCount = document.getElementById('notificationCount');
 	
