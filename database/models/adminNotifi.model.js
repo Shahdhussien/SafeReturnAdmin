@@ -28,4 +28,4 @@ const adminNotifSchema=new mongoose.Schema({
     }
 },{timestamps:true})
 
-export const adminNotifModel = mongoose.model('adminNotification',adminNotifSchema)
+export const adminNotifModel = mongoose.model('aNotification',adminNotifSchema)
